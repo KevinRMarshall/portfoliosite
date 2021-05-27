@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <title>Fiasco Desktop Companion</title>
+      <!--our stuff-->
+      <link rel="stylesheet" href="https://bootswatch.com/5/vapor/bootstrap.min.css">
+      <script src="functions/FiascoMulti.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+      <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <audio id="myAudio">
+         <source src="audio/dice.wav">
+      </audio>
+      <audio id="myAudioUse">
+         <source src="audio/use.mp3">
+      </audio>
+   </head>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+         <a class="navbar-brand" href="#">Fiasco Desktop Companion</a>
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav me-auto">
+               <li class="nav-item">
+                  <a class="nav-link" href="http://fiascoplaysets.com/" target= "_blank">Fiasco Scenarios</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="https://www.youtube.com/watch?v=DEPPzWvmBLo" target= "_blank">How To Play</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/aboutme">Contact</a>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </nav>
+   <body>
+      <div class="jumbotron">
+         <div class="container">
+            <fieldset class="form-group">
+               <legend class="mt-4">Current Round:</legend>
+               <div class="form-check-inline" style = " display: flex; justify-content: space-between; text-align:center;">
+                  <div class="col-md-0 col-xs-2" id ="setUpPicture">
+                     <img src="images/cubes.png" alt="cubes" style="width:50px; height: 50px;">
+                     <h4> Setup</h4>
+                  </div>
+                  <div class="col-md-0 col-xs-2" id ="actOnePicture" style = "opacity: 0.3;">
+                     <img src="images/one.png" alt="one" style="width:50px; height: 50px;">
+                     <h4> Act One</h4>
+                  </div>
+                  <div class="col-md-0 col-xs-2" id="tiltPicture" style = "opacity: 0.3;">
+                     <img src="images/dice.png" alt="die" style="width:50px; height: 50px;">
+                     <h4> Tilt</h4>
+                  </div>
+                  <div class="col-md-0 col-xs-2" id ="actTwoPicture" style = "opacity: 0.3;">
+                     <img src="images/two.png" alt="two" style="width:50px; height: 50px;">
+                     <h4> Act Two</h4>
+                  </div>
+                  <div class="col-md-0 col-xs-2" id ="aftermathPicture" style = "opacity: 0.3;">
+                     <img src="images/theater.png" alt="theater" style="width:50px; height: 50px;">
+                     <h4> Aftermath</h4>
+                  </div>
+               </div>
+            </fieldset>
+            <div class="progress">
+               <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progressBar" aria-valuenow="100" aria-valuemin="50" aria-valuemax="100" style="width:2.3%;"></div>
+            </div>
+            <!--First Card row-->
+            <div class="row justify-content-center" id = "firstRow">
+               <div class="column" style="padding:5px; display: flex; justify-content: center; padding: 50px;">
+                  <!--Select player count-->
+                  <div class="form-group">
+                     <label for="players" class="form-label mt-3">Please select the player count:</label>
+                     <select class="form-select" id="players" onchange="enablePlay(this)" style="width:100%; background-color: #ea39b8;">
+                        <option disabled selected value> -- select an amount -- </option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                     </select>
+                     <br>
+                     <button type="button" id="playerCount" disabled style="opacity: 0.4; width:100%;" onclick="playerCount()" class="btn btn-outline-info">Start Game</button>
+                     <input type="text" id="halfWayChecker" name="halfWayChecker" hidden size="1">				  
+                  </div>
+               </div>
+            </div>
+            <br>
+            <!--Dice rolling-->
+            <div class="row justify-content-center">
+               <div class="card border-secondary mb-3" id = "diceRolling" style="max-width: 20rem; margin-left:0px; pointer-events: none; opacity: 0.4;" hidden>
+                  <div class="card-body">
+                     <h4  class="card-title">Dice Roller</h4>
+                     <button type="button" id = "rollButton" onclick="rollDice()" class="btn btn-outline-secondary">Roll!</button>		
+                     <p>Results:</p>
+                     <input class="form-control" style=" margin-bottom: 10px;" id="rollResult" type="text" placeholder="" disabled="">
+                     <div class="form-group" style ="display:flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 10px;">			
+                        <label class="form-label" for="rollOneText" ></label><img src="images/diceOne.png" alt="dieOne" style="width:30px; height: 30px;">
+                        <input class="form-control" id="rollOneText" type="text" placeholder="" disabled="" style="margin-left:5px; margin-right:5px;">
+                        <button type="button" id="buttonOne" onclick="subtractOne()" class="btn btn-outline-primary" disabled>Use</button>			
+                     </div>
+                     <div class="form-group" style ="display:flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 10px;">			
+                        <label class="form-label" for="rollTwoText"></label><img src="images/diceTwo.png" alt="dieTwo" style="width:30px; height: 30px;">
+                        <input class="form-control" id="rollTwoText" type="text" placeholder="" disabled="" style="margin-left:5px; margin-right:5px;">	
+                        <button type="button" id="buttonTwo" onclick="subtractTwo()" class="btn btn-outline-primary" disabled>Use</button>			
+                     </div>
+                     <div class="form-group" style ="display:flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 10px;">			
+                        <label class="form-label" for="rollThreeText"></label><img src="images/diceThree.png" alt="dieThree" style="width:30px; height: 30px;">
+                        <input class="form-control" id="rollThreeText" type="text" placeholder="" disabled="" style="margin-left:5px; margin-right:5px;">	
+                        <button type="button" id="buttonThree" onclick="subtractThree()" class="btn btn-outline-primary" disabled>Use</button>
+                     </div>
+                     <div class="form-group" style ="display:flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 10px;">			
+                        <label class="form-label" for="rollFourText"></label><img src="images/diceFour.png" alt="dieFour" style="width:30px; height: 30px;">
+                        <input class="form-control" id="rollFourText" type="text" placeholder="" disabled="" style="margin-left:5px; margin-right:5px;">
+                        <button type="button" id="buttonFour" onclick="subtractFour()" class="btn btn-outline-primary" disabled>Use</button>			
+                     </div>
+                     <div class="form-group" style ="display:flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 10px;">			
+                        <label class="form-label" for="rollFiveText"></label><img src="images/diceFive.png" alt="dieFive" style="width:30px; height: 30px;">
+                        <input class="form-control" id="rollFiveText" type="text" placeholder="" disabled="" style="margin-left:5px; margin-right:5px;">
+                        <button type="button" id="buttonFive" onclick="subtractFive()" class="btn btn-outline-primary" disabled>Use</button>	
+                     </div>
+                     <div class="form-group" style ="display:flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 10px;">			
+                        <label class="form-label" for="rollSixText"></label><img src="images/diceSix.png" alt="dieSix" style="width:30px; height: 30px;">
+                        <input class="form-control" id="rollSixText" type="text" placeholder="" disabled="" style="margin-left:5px; margin-right:5px;">
+                        <button type="button" id="buttonSix" onclick="subtractSix()" class="btn btn-outline-primary" disabled>Use</button>			
+                     </div>
+                  </div>
+               </div>
+               <!--Dice rolling end-->
+               <!--Player Cards-->
+               <div class="card border-warning mb-3" id ="playerInformation" style="max-width: 55rem; min-width: 55rem; margin-left:15px; pointer-events: none; opacity: 0.4;" hidden>
+                  <div class="card-body">
+                     <h4 class="card-title" style="margin-bottom:10px;">Player Information</h4>
+                     <!--Header-->
+                     <div style ="display:flex; flex-direction: row;">
+                        <p class="text-info" style="margin-left: 235px;">White Dice</p>
+                        <p class="text-info" style="margin-left: 36px;">Black Dice</p>
+                        <p class="text-success" style="margin-left: 45px;">White Roll</p>
+                        <p class="text-success" style="margin-left: 35px;">Black Roll</p>
+                        <p class="text-secondary" style="margin-left: 70px;">Result</p>
+                     </div>
+                     <!--End of Header-->
+                     <!--Player One-->
+                     <div class="form-group">
+                        <div class="form-floating mb-3" id = "playerOneSlot" style ="display:flex; flex-direction: row; justify-content: left; margin-bottom: 10px;">
+                           <input type="text" class="form-control" id="playerOne" placeholder="example" style="width: 170px;" maxlength="20">					
+                           <label for="floatingInput">Player One</label>
+                           <button type="button" class="btn btn-outline-success" id="playerOneAccept" onclick="oneAccept()" style="margin-left:10px;">✓</button>	
+                           <!--Game start white dice-->
+                           <button type="button" class="btn btn-dark" id="playerOneSubtractWhite" onclick="oneSubtractWhite()" style="margin-left: 5px; margin-right: 5px;" disabled>-</button>
+                           <input class="form-control" id="playerOneWhiteCount" type="text" value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerOneAddWhite" onclick="oneAddWhite()" style="margin-left: 5px" disabled>+</button>
+                           <!--Game start black dice-->
+                           <button type="button" class="btn btn-dark" id="playerOneSubtractBlack" onclick="oneSubtractBlack()" style="margin-left: 5px; margin-right: 5px;" disabled>-</button>
+                           <input class="form-control" id="playerOneBlackCount" type="text" value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerOneAddBlack" onclick="oneAddBlack()" style="margin-left: 5px" disabled>+</button>
+                           <!--Result white-->
+                           <input class="form-control" id="playerOneWhiteRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 2.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result black-->
+                           <input class="form-control" id="playerOneBlackRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result-->
+                           <input class="form-control" id="playerOneResult" type="text" value="..." disabled="" style="width: 90px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Game start end-->
+                        </div>
+                        <!--Player Two-->
+                        <div class="form-floating mb-3" id = "playerTwoSlot" style ="display:flex; flex-direction: row; justify-content: left; margin-bottom: 10px;">
+                           <input type="email" class="form-control" id="playerTwo" placeholder="example" style="width: 170px;" maxlength="20">
+                           <label for="floatingInput">Player Two</label>
+                           <button type="button" class="btn btn-outline-success" id="playerTwoAccept" onclick="twoAccept()" style="margin-left:10px;">✓</button>	
+                           <!--Game start white dice-->
+                           <button type="button" class="btn btn-dark" id="playerTwoSubtractWhite" onclick="twoSubtractWhite()" style="margin-left: 5px; margin-right: 5px;" disabled>-</button>
+                           <input class="form-control" id="playerTwoWhiteCount" type="text"  value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerTwoAddWhite" onclick="twoAddWhite()" style="margin-left: 5px" disabled>+</button>
+                           <!--Game start black dice-->
+                           <button type="button" class="btn btn-dark" id="playerTwoSubtractBlack" onclick="twoSubtractBlack()" style="margin-left: 5px; margin-right: 5px;" disabled>-</button>
+                           <input class="form-control" id="playerTwoBlackCount" type="text"  value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerTwoAddBlack" onclick="twoAddBlack()" style="margin-left: 5px" disabled>+</button>
+                           <!--Result black-->
+                           <input class="form-control" id="playerTwoWhiteRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 2.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result white-->
+                           <input class="form-control" id="playerTwoBlackRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result-->
+                           <input class="form-control" id="playerTwoResult" type="text" value="..." disabled="" style="width: 90px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Game start end-->
+                        </div>
+                        <!-- Player Three-->
+                        <div class="form-floating mb-3" id = "playerThreeSlot" style ="display:flex; flex-direction: row; justify-content: left; margin-bottom: 10px;">
+                           <input type="email" class="form-control" id="playerThree" placeholder="example" style="width: 170px;" maxlength="20">
+                           <label for="floatingInput">Player Three</label>
+                           <button type="button" class="btn btn-outline-success" id = "playerThreeAccept" onclick="threeAccept()" style="margin-left:10px;">✓</button>	
+                           <!--Game start white dice-->
+                           <button type="button" class="btn btn-dark" id="playerThreeSubtractWhite" onclick="threeSubtractWhite()" style="margin-left: 5px; margin-right:5px;" disabled>-</button>
+                           <input class="form-control" id="playerThreeWhiteCount" type="text"  value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerThreeAddWhite" onclick="threeAddWhite()" style="margin-left: 5px" disabled>+</button>
+                           <!--Game start black dice-->
+                           <button type="button" class="btn btn-dark" id="playerThreeAddBlack" onclick="threeSubtractBlack()" style="margin-left: 5px; margin-right:5px;" disabled>-</button>
+                           <input class="form-control" id="playerThreeBlackCount" type="text"  value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerThreeSubtractBlack" onclick="threeAddBlack()" style="margin-left: 5px" disabled>+</button>
+                           <!--Result black-->
+                           <input class="form-control" id="playerThreeWhiteRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 2.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result white-->
+                           <input class="form-control" id="playerThreeBlackRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result-->
+                           <input class="form-control" id="playerThreeResult" type="text" value="..." disabled="" style="width: 90px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Game start end-->
+                        </div>
+                        <!--Player Four-->
+                        <div class="form-floating mb-3" id = "playerFourSlot" style ="display:flex; flex-direction: row; justify-content: left; margin-bottom: 10px;">
+                           <input type="email" class="form-control" id="playerFour" placeholder="example" style="width: 170px;" maxlength="20">
+                           <label for="floatingInput">Player Four</label>
+                           <button type="button" class="btn btn-outline-success" id="playerFourAccept" onclick="fourAccept()" style="margin-left:10px;">✓</button>
+                           <!--Game start white dice-->
+                           <button type="button" class="btn btn-dark" id="playerFourSubtractWhite" onclick="fourSubtractWhite()" style="margin-left: 5px; margin-right:5px;" disabled>-</button>
+                           <input class="form-control" id="playerFourWhiteCount" type="text" value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerFourAddWhite" onclick="fourAddWhite()" style="margin-left: 5px" disabled>+</button>
+                           <!--Game start black dice-->
+                           <button type="button" class="btn btn-dark" id="playerFourSubtractBlack" onclick="fourSubtractBlack()" style="margin-left: 5px; margin-right:5px;" disabled>-</button>
+                           <input class="form-control" id="playerFourBlackCount" type="text" value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerFourAddBlack" onclick="fourAddBlack()" style="margin-left: 5px" disabled>+</button>
+                           <!--Result black-->
+                           <input class="form-control" id="playerFourWhiteRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 2.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result white-->
+                           <input class="form-control" id="playerFourBlackRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result-->
+                           <input class="form-control" id="playerFourResult" type="text" value="..." disabled="" style="width: 90px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Game start end-->	
+                        </div>
+                        <!--Player Five-->
+                        <div class="form-floating mb-3" id = "playerFiveSlot" style ="display:flex; flex-direction: row; justify-content: left; margin-bottom: 10px;">
+                           <input type="email" class="form-control" id="playerFive" placeholder="example" style="width: 170px;" maxlength="20">
+                           <label for="floatingInput">Player Five</label>
+                           <button type="button" class="btn btn-outline-success" id="playerFiveAccept" onclick="fiveAccept()" style="margin-left:10px;">✓</button>
+                           <!--Game start white dice-->
+                           <button type="button" class="btn btn-dark" id="playerFiveSubtractWhite" onclick="fiveSubtractWhite()" style="margin-left: 5px; margin-right:5px;" disabled>-</button>
+                           <input class="form-control" id="playerFiveWhiteCount" type="text"  value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerFiveAddWhite" onclick="fiveAddWhite()" style="margin-left: 5px" disabled>+</button>
+                           <!--Game start black dice-->
+                           <button type="button" class="btn btn-dark" id="playerFiveSubtractBlack" onclick="fiveSubtractBlack()" style="margin-left: 5px; margin-right:5px;" disabled>-</button>
+                           <input class="form-control" id="playerFiveBlackCount" type="text" value="0" disabled="" style="width: 35px; text-align: center; padding-top: 0.625rem;">
+                           <button type="button" class="btn btn-dark" id="playerFiveAddBlack" onclick="fiveAddBlack()" style="margin-left: 5px" disabled>+</button>
+                           <!--Result black-->
+                           <input class="form-control" id="playerFiveWhiteRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 2.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result white-->
+                           <input class="form-control" id="playerFiveBlackRoll" type="text" title="..." value="..." disabled="" style="width: 50px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Result-->
+                           <input class="form-control" id="playerFiveResult" type="text" value="..." disabled="" style="width: 90px; margin-left: 3.5rem; text-align: center; padding-top: 0.625rem;">
+                           <!--Game start end-->	
+                        </div>
+                     </div>
+                     <!--End of players-->
+                     <div style ="display:flex; flex-direction: row; justify-content: center; align-items: center; padding-top:2rem;">
+                        <img src="images/dicewhite.png" alt="dieWhite" style="width:30px; height: 30px;">				  
+                        <p class="text-muted" style="margin-top:1rem; margin-left:0.5rem;">White Die Remaining:</p>
+                        <input class="form-control" id="whiteDieText" type="text" value="..." disabled="" style="width: 50px; text-align: center; margin-right:0.5rem; ">
+                        <img src="images/dice.png" alt="dieBlack" style="width:30px; height: 30px;">
+                        <p class="text-muted" style="margin-top:1rem; margin-left:0.5rem;">Black Die Remaining:</p>
+                        <input class="form-control" id="blackDieText" type="text" value="..." disabled="" style="width: 50px; text-align: center;">					 
+                     </div>
+                  </div>
+               </div>
+               <!--Alert-->
+               <div class="alert alert-danger alert-dismissible text-center" id="enterName" hidden style="width:100%; padding:5px;">
+                  <a href="#" class="close" hidden data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Hey, yo! </strong> You need to enter SOME sort of name, otherwise who is going to know who you are?!
+               </div>
+               <!--Act One Alert-->
+               <div class="alert alert-info alert-dismissible text-center" id="startActOne"  hidden style="width:100%; padding:5px;">
+                  <a href="#" class="close" hidden data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Act one begins! </strong> Get ready to Fiasco!
+               </div>
+               <!--Halfway: Tilt Alert-->
+               <div class="alert alert-secondary alert-dismissible text-center" id="startTilt"  hidden style="width:100%; padding:5px;">
+                  <a href="#" class="close" hidden data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Halfway Done! </strong>Welcome to the Tilt Phase! Top Black and Top White get to choose one die each!
+               </div>
+               <!--Act Two Alert-->
+               <div class="alert alert-info alert-dismissible text-center" id="startActTwo"  hidden style="width:100%; padding:5px;">
+                  <a href="#" class="close" hidden data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Act Two Begins! </strong>Good luck, have fun!
+               </div>
+               <!--No Black Die-->
+               <div class="alert alert-danger alert-dismissible text-center" id="blackDieRemain"  hidden style="width:100%; padding:5px;">
+                  <a href="#" class="close" hidden data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>No BLACK die left! </strong>Please take from the white die!
+               </div>
+               <!--No White Die-->
+               <div class="alert alert-danger alert-dismissible text-center" id="whiteDieRemain"  hidden style="width:100%; padding:5px;">
+                  <a href="#" class="close" hidden data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>No WHITE die left! </strong>Please take from the black die!
+               </div>
+               <!--Aftermath-->
+               <div class="alert alert-success alert-dismissible text-center" id="aftermath"  hidden style="width:100%; padding:5px;">
+                  <a href="#" class="close" hidden data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Aftermath time! </strong>Time to wrap things up!
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

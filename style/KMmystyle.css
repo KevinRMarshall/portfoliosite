@@ -1,0 +1,302 @@
+label.error{
+	color: #F00;
+	font-weight: bold;
+}
+
+input.error,
+select.error,
+textarea.error {
+	border: 1px red solid;
+}
+
+.dieCount {
+    align-items: center;
+    display: flex;
+    height: 40px;
+    border: 1px solid;
+	color: #F00;
+}
+
+h2 {
+  padding-left: 185px;
+}
+
+h1 {
+ padding-left: 50px;
+}
+
+/*Player 1*/
+
+#playerOne {
+  background-color: yellow;
+
+}
+
+#playerOneAccept {
+  background-color: yellow;
+
+}
+
+#playerOneSubtractBlack {
+  background-color: yellow;
+
+}
+
+#playerOneAddBlack {
+  background-color: yellow;
+
+}
+
+#playerOneAddWhite {
+  background-color: yellow;
+
+}
+
+#playerOneSubtractWhite {
+  background-color: yellow;
+
+}
+
+#playerOneBlackCount {
+  background-color: yellow;
+
+}
+
+#playerOneWhiteCount {
+  background-color: yellow;
+
+}
+
+/*Player 2*/
+
+#playerTwo {
+  background-color: pink;
+
+}
+
+#playerTwoAccept {
+  background-color: pink;
+
+}
+
+#playerTwoSubtractBlack {
+  background-color: pink;
+
+}
+
+#playerTwoAddBlack {
+  background-color: pink;
+
+}
+
+#playerTwoAddWhite {
+  background-color: pink;
+
+}
+
+#playerTwoSubtractWhite {
+  background-color: pink;
+
+}
+
+#playerTwoBlackCount {
+  background-color: pink;
+
+}
+
+#playerTwoWhiteCount {
+  background-color: pink;
+
+}
+
+
+/*Player 3*/
+
+#playerThree {
+  background-color: orange;
+
+}
+
+#playerThreeAccept {
+  background-color: orange;
+
+}
+
+#playerThreeSubtractBlack {
+  background-color: orange;
+
+}
+
+#playerThreeAddBlack {
+  background-color: orange;
+
+}
+
+#playerThreeAddWhite {
+  background-color: orange;
+
+}
+
+#playerThreeSubtractWhite {
+  background-color: orange;
+
+}
+
+#playerThreeBlackCount {
+  background-color: orange;
+
+}
+
+#playerThreeWhiteCount {
+  background-color: orange;
+
+}
+
+/*Player 4*/
+
+#playerFour {
+  background-color:#B0E0E6;
+
+}
+
+#playerFourAccept {
+  background-color: #B0E0E6;
+
+}
+
+#playerFourSubtractBlack {
+  background-color: #B0E0E6;
+
+}
+
+#playerFourAddBlack {
+  background-color: #B0E0E6;
+
+}
+
+#playerFourAddWhite {
+  background-color: #B0E0E6;
+
+}
+
+#playerFourSubtractWhite {
+  background-color: #B0E0E6;
+
+}
+
+#playerFourBlackCount {
+  background-color: #B0E0E6;
+
+}
+
+#playerFourWhiteCount {
+  background-color: #B0E0E6;
+
+}
+
+/*Player 5*/
+
+#playerFive {
+  background-color: #F5F5DC;
+
+}
+
+#playerFiveAccept {
+  background-color: #F5F5DC;
+
+}
+
+#playerFiveSubtractBlack {
+  background-color:  #F5F5DC;
+
+}
+
+#playerFiveAddBlack {
+  background-color:  #F5F5DC;
+
+}
+
+#playerFiveAddWhite {
+  background-color:  #F5F5DC;
+
+}
+
+#playerFiveSubtractWhite {
+  background-color:  #F5F5DC;
+
+}
+
+#playerFiveBlackCount {
+  background-color:  #F5F5DC;
+
+}
+
+#playerFiveWhiteCount {
+  background-color:  #F5F5DC;
+
+}
+
+#rollAnnouncement {
+  font-size: 25px;
+
+}
+
+#blackResult, #blackResultTwo, #blackResultThree, #blackResultFour, #blackResultFive {
+  font-size: 15px;
+  margin-left: 50px;
+
+}
+
+#whiteResult, #whiteResultTwo, #whiteResultThree, #whiteResultFour, #whiteResultFive {
+  font-size: 15px;
+
+}
+
+* {
+	
+  background-color: #FFFFF0;	
+}
+
+h1 .left{
+	
+  color: brown;	
+  margin-left: 55px;
+}
+
+
+h1 .right{
+	
+  color: brown;	
+  padding-left: 300px;
+}
+
+h1 .playerOneText{
+	
+  
+  margin-left: 125px;
+}
+
+h1 .playerOneAlign{	
+  
+  margin-left: 125px;
+}
+
+
+h2 .dieCountMove{	
+  
+  margin-left: 275px;
+  font-size: 15px;
+}
+
+h2 .dieCountMoveRight{	
+  
+  padding-left: 50px;
+  font-size: 15px;
+}
+
+
+#errorPlayer1, #errorPlayer2, #errorPlayer3, #errorPlayer4, #errorPlayer5{
+  font-size: 15px;
+  color: red;
+
+}
